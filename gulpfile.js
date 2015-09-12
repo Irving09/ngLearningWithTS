@@ -2,6 +2,7 @@ var gulp 		= require('gulp');
 var typescript 	= require('gulp-typescript');
 var tslint 		= require('gulp-tslint');
 var clean 		= require('del');
+var merge		= require('merge-stream');
 
 var ts_lint_config = {
 	configuration: {
@@ -35,14 +36,21 @@ gulp.task('clean', function() {
 });
 
 gulp.task('compile', ['lint', 'clean'], function() {
-	var srcFiles	= ['./app/**/*.ts', './typings/**/*.ts'];
+	var htmlFiles	= './app/**/*.html';
+	var bin			= './app.bin';
+	var tsFiles		= ['./app/**/*.ts', './typings/**/*.ts'];
 	var config      = typescript.createProject('./tsconfig.json');
-	var task		= gulp.src(srcFiles);
+	var compile		= gulp.src(tsFiles);
+	var copy		= gulp.src(htmlFiles);
 
-	return task
-			.pipe(typescript(config))
-			.js
-			.pipe(gulp.dest('./app.bin'));
+	var task1 = copy
+					.pipe(gulp.dest(bin));
+	var task2 = compile
+					.pipe(typescript(config))
+					.js
+					.pipe(gulp.dest(bin));
+
+	return merge(task1, task2);
 });
 
 gulp.task('watch', function() {

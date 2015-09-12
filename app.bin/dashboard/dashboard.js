@@ -1,4 +1,5 @@
 /// <reference path="../typings/angularjs/angular.d.ts" />
+/// <reference path="../typings/angularjs/angular-route.d.ts" />
 var dashboard;
 (function (dashboard) {
     'use strict';
@@ -7,7 +8,7 @@ var dashboard;
         .module('app.dashboard', ['ngRoute'])
         .config(['$routeProvider', function ($routeProvider) {
             $routeProvider.when('/', {
-                templateUrl: 'dashboard/dashboard.html',
+                templateUrl: './dashboard.html',
                 controller: 'dashboardController',
                 controllerAs: 'dashboardCtrl'
             });

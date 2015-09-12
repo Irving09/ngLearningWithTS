@@ -21,6 +21,7 @@
     "del": "^2.0.1",
     "gulp": "^3.9.0",
     "gulp-tslint": "^3.2.0",
-    "gulp-typescript": "^2.8.2"
+    "gulp-typescript": "^2.8.2",
+    "merge-stream": "^1.0.0"
   }
 }
